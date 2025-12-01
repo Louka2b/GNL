@@ -6,7 +6,13 @@
 /*   By: ldeplace <ldeplace@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/25 15:07:52 by ldeplace          #+#    #+#             */
-/*   Updated: 2025/11/25 15:07:53 by ldeplace         ###   ########.fr       */
+/*   Updated: 2025/11/27 12:54:26 by ldeplace         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "get_next_line.h"
+
+char	*get_next_line(int fd)
+{
+	static int	tmp;
+}
