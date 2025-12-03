@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*    get_next_line_utils.c                             :+:      :+:    :+:   */
+/*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ldeplace <ldeplace@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/25 15:07:48 by ldeplace          #+#    #+#             */
-/*   Updated: 2025/12/02 12:02:24 by ldeplace         ###   ########.fr       */
+/*   Updated: 2025/12/03 15:27:35 by ldeplace         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ char	*ft_strjoin(char const *s1, char const *s2)
 
 	i = 0;
 	j = 0;
+	if (!s1 || !s2)
+		return (NULL);
 	str = (char *)malloc(((ft_strlen(s1) + ft_strlen(s2)) + 1) * sizeof(char));
 	if (!str)
 		return (NULL);
@@ -43,6 +45,8 @@ char	*ft_strchr(const char *s, int c)
 	int	i;
 
 	i = 0;
+	if (!s)
+		return (NULL);
 	while (s[i])
 	{
 		if (s[i] == (char)c)
@@ -58,6 +62,8 @@ size_t	ft_strlen(const char *str)
 {
 	size_t	count;
 
+	if (!str)
+		return (0);
 	count = 0;
 	while (str[count] != '\0')
 		count++;

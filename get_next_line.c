@@ -6,7 +6,7 @@
 /*   By: ldeplace <ldeplace@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 13:28:56 by ldeplace          #+#    #+#             */
-/*   Updated: 2025/12/02 15:22:09 by ldeplace         ###   ########.fr       */
+/*   Updated: 2025/12/03 15:30:09 by ldeplace         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,48 +16,101 @@
 # define BUFFER_SIZE 400
 #endif
 
-static void	*ft_calloc(size_t count, size_t size)
-{
-	char	*str;
-	size_t	block;
-
-	block = count * size;
-	if (count && (size != (block / count)))
-		return (NULL);
-	str = (char *)malloc(size * count);
-	if (!str)
-		return (NULL);
-	ft_bzero(str, size * count);
-	return (str);
-}
-
-char	*fill_line_buffer(int fd, char *left, char *buffer)
+int	ft_endl(char *str)
 {
 	int	i;
 
-	i = 1;
-	while (i != BUFFER_SIZE)
-	{
-		read(fd, buffer, BUFFER_SIZE);
-		if(ft_strchr(buffer, '\n') != NULL)
-		{
-			break;
-		}
-	}
-	
+	i = 0;
+	while (str[i] != '\n' && str[i] != '\0')
+		i++;
+	if (str[i] == '\n')
+		return (1);
+	return (0);
 }
 
-char	*set_line(char *line_buffer)
+char	*ft_get_line(char *buffer)
 {
-	
+	int		i;
+	char	*str;
+
+	i = 0;
+	if (!buffer[i])
+		return (NULL);
+	while (buffer[i] && buffer[i] != '\n')
+		i++;
+	str = ft_substr(buffer, 0, i + ft_endl(buffer));
+	if (!str)
+	{
+		free(str);
+		return (NULL);
+	}
+	return (str);
+}
+
+char	*ft_new_str(char *buffer)
+{
+	int		i;
+	int		j;
+	char	*str;
+
+	i = 0;
+	while (buffer[i] && buffer[i] != '\n')
+		i++;
+	if (!buffer[i])
+	{
+		free(buffer);
+		return (NULL);
+	}
+	str = malloc(sizeof(char) * (ft_strlen(buffer) - i + 1));
+	if (!str)
+	{
+		free(str);
+		return (NULL);
+	}
+	i++;
+	j = 0;
+	while (buffer[i])
+		str[j++] = buffer[i++];
+	str[j] = '\0';
+	free(buffer);
+	return (str);
+}
+
+char	*ft_read_str(int fd, char *buffer)
+{
+	char	*s;
+	int		bytes;
+
+	s = malloc((BUFFER_SIZE + 1) * sizeof(char));
+	if (!s)
+		return (NULL);
+	bytes = 1;
+	while (!ft_strchr(buffer, '\n') && bytes != 0)
+	{
+		bytes = read(fd, s, BUFFER_SIZE);
+		if (bytes < 0)
+		{
+			free(s);
+			return (NULL);
+		}
+		s[bytes] = '\0';
+		buffer = ft_strjoin(buffer, s);
+	}
+	free(s);
+	return (buffer);
 }
 
 char	*get_next_line(int fd)
 {
-	static char	*str;
-	int			i;
+	char		*line;
+	static char	*buffer;
 
-	if (fd == 0 || read(fd))
+	if (fd < 0 || BUFFER_SIZE <= 0)
+		return (0);
+	buffer = ft_read_str(fd, buffer);
+	if (!buffer)
 		return (NULL);
-	
+	line = ft_get_line(buffer);
+	buffer = ft_new_str(buffer);
+	return (line);
 }
