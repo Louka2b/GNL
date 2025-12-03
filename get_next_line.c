@@ -6,7 +6,7 @@
 /*   By: ldeplace <ldeplace@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 13:28:56 by ldeplace          #+#    #+#             */
-/*   Updated: 2025/12/03 15:30:09 by ldeplace         ###   ########.fr       */
+/*   Updated: 2025/12/03 15:34:59 by ldeplace         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,10 @@
 #ifndef BUFFER_SIZE
 # define BUFFER_SIZE 400
 #endif
+
+# ifndef MAX_FD
+#  define MAX_FD 1024
+# endif
 
 int	ft_endl(char *str)
 {
@@ -94,7 +98,17 @@ char	*ft_read_str(int fd, char *buffer)
 			return (NULL);
 		}
 		s[bytes] = '\0';
-		buffer = ft_strjoin(buffer, s);
+		{
+			char *tmp = ft_strjoin(buffer, s);
+			if (!tmp)
+			{
+				free(s);
+				free(buffer);
+				return (NULL);
+			}
+			free(buffer);
+			buffer = tmp;
+		}
 	}
 	free(s);
 	return (buffer);
@@ -103,14 +117,14 @@ char	*ft_read_str(int fd, char *buffer)
 char	*get_next_line(int fd)
 {
 	char		*line;
-	static char	*buffer;
+	static char	*buffers[MAX_FD];
 
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	if (fd < 0 || fd >= MAX_FD || BUFFER_SIZE <= 0)
 		return (0);
-	buffer = ft_read_str(fd, buffer);
-	if (!buffer)
+	buffers[fd] = ft_read_str(fd, buffers[fd]);
+	if (!buffers[fd])
 		return (NULL);
-	line = ft_get_line(buffer);
-	buffer = ft_new_str(buffer);
+	line = ft_get_line(buffers[fd]);
+	buffers[fd] = ft_new_str(buffers[fd]);
 	return (line);
 }
