@@ -6,7 +6,7 @@
 /*   By: ldeplace <ldeplace@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 13:28:56 by ldeplace          #+#    #+#             */
-/*   Updated: 2025/12/03 15:34:59 by ldeplace         ###   ########.fr       */
+/*   Updated: 2025/12/03 15:50:53 by ldeplace         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,7 @@ char	*ft_read_str(int fd, char *buffer)
 			{
 				free(s);
 				free(buffer);
+				free(tmp);
 				return (NULL);
 			}
 			free(buffer);
