@@ -6,14 +6,14 @@
 /*   By: ldeplace <ldeplace@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 13:28:56 by ldeplace          #+#    #+#             */
-/*   Updated: 2025/12/04 17:03:42 by ldeplace         ###   ########.fr       */
+/*   Updated: 2025/12/04 17:57:16 by ldeplace         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
 #ifndef BUFFER_SIZE
-# define BUFFER_SIZE 400
+# define BUFFER_SIZE 42
 #endif
 
 #ifndef MAX_FD
@@ -23,6 +23,7 @@
 char	*ft_freeall(char *buffer, char *s)
 {
 	char	*tmp;
+
 	tmp = ft_strjoin(buffer, s);
 	if (!tmp)
 	{
