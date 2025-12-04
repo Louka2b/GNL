@@ -6,7 +6,7 @@
 /*   By: ldeplace <ldeplace@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 13:28:56 by ldeplace          #+#    #+#             */
-/*   Updated: 2025/12/03 15:50:53 by ldeplace         ###   ########.fr       */
+/*   Updated: 2025/12/04 15:59:54 by ldeplace         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,33 +16,29 @@
 # define BUFFER_SIZE 400
 #endif
 
-# ifndef MAX_FD
-#  define MAX_FD 1024
-# endif
-
-int	ft_endl(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i] != '\n' && str[i] != '\0')
-		i++;
-	if (str[i] == '\n')
-		return (1);
-	return (0);
-}
+#ifndef MAX_FD
+# define MAX_FD 1024
+#endif
 
 char	*ft_get_line(char *buffer)
 {
 	int		i;
 	char	*str;
+	int		o;
 
 	i = 0;
 	if (!buffer[i])
 		return (NULL);
 	while (buffer[i] && buffer[i] != '\n')
 		i++;
-	str = ft_substr(buffer, 0, i + ft_endl(buffer));
+	o = 0;
+	while (buffer[o] != '\n' && buffer[o] != '\0')
+		o++;
+	if (buffer[o] == '\n')
+		o = 1;
+	else
+		o = 1;
+	str = ft_substr(buffer, 0, i + o);
 	if (!str)
 	{
 		free(str);
@@ -84,6 +80,7 @@ char	*ft_read_str(int fd, char *buffer)
 {
 	char	*s;
 	int		bytes;
+	char	*tmp;
 
 	s = malloc((BUFFER_SIZE + 1) * sizeof(char));
 	if (!s)
@@ -99,7 +96,7 @@ char	*ft_read_str(int fd, char *buffer)
 		}
 		s[bytes] = '\0';
 		{
-			char *tmp = ft_strjoin(buffer, s);
+			tmp = ft_strjoin(buffer, s);
 			if (!tmp)
 			{
 				free(s);
@@ -117,8 +114,8 @@ char	*ft_read_str(int fd, char *buffer)
 
 char	*get_next_line(int fd)
 {
-	char		*line;
-	static char	*buffers[MAX_FD];
+	char *line;
+	static char *buffers[MAX_FD];
 
 	if (fd < 0 || fd >= MAX_FD || BUFFER_SIZE <= 0)
 		return (0);

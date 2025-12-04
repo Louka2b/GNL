@@ -6,7 +6,7 @@
 /*   By: ldeplace <ldeplace@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/25 15:07:48 by ldeplace          #+#    #+#             */
-/*   Updated: 2025/12/03 15:34:59 by ldeplace         ###   ########.fr       */
+/*   Updated: 2025/12/04 15:40:04 by ldeplace         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,22 @@
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {
-	char    *str;
-	size_t  i;
-	size_t  j;
-	size_t  len1;
-	size_t  len2;
+	char	*str;
+	size_t	i;
+	size_t	j;
+	size_t	len1;
+	size_t	len2;
 
 	i = 0;
 	j = 0;
-	len1 = s1 ? ft_strlen(s1) : 0;
-	len2 = s2 ? ft_strlen(s2) : 0;
+	if (s1 != NULL)
+		len1 = ft_strlen(s1);
+	else
+		len1 = 0;
+	if (s2 != NULL)
+		len2 = ft_strlen(s2);
+	else
+		len2 = 0;
 	str = (char *)malloc((len1 + len2 + 1) * sizeof(char));
 	if (!str)
 		return (NULL);
@@ -33,11 +39,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		i++;
 	}
 	while (s2 && s2[j])
-	{
-		str[i] = s2[j];
-		j++;
-		i++;
-	}
+		str[i++] = s2[j++];
 	str[i] = '\0';
 	return (str);
 }
@@ -100,9 +102,9 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 
 char	*ft_strdup(char *src)
 {
-	char	*str;
-	int		i;
-	int		j;
+	char *str;
+	int i;
+	int j;
 
 	i = ft_strlen(src);
 	j = 0;
