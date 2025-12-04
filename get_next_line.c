@@ -6,7 +6,7 @@
 /*   By: ldeplace <ldeplace@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 13:28:56 by ldeplace          #+#    #+#             */
-/*   Updated: 2025/12/04 15:59:54 by ldeplace         ###   ########.fr       */
+/*   Updated: 2025/12/04 17:03:42 by ldeplace         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,21 @@
 #ifndef MAX_FD
 # define MAX_FD 1024
 #endif
+
+char	*ft_freeall(char *buffer, char *s)
+{
+	char	*tmp;
+	tmp = ft_strjoin(buffer, s);
+	if (!tmp)
+	{
+		free(s);
+		free(buffer);
+		free(tmp);
+		return (NULL);
+	}
+	free(buffer);
+	return (tmp);
+}
 
 char	*ft_get_line(char *buffer)
 {
@@ -80,7 +95,6 @@ char	*ft_read_str(int fd, char *buffer)
 {
 	char	*s;
 	int		bytes;
-	char	*tmp;
 
 	s = malloc((BUFFER_SIZE + 1) * sizeof(char));
 	if (!s)
@@ -95,18 +109,7 @@ char	*ft_read_str(int fd, char *buffer)
 			return (NULL);
 		}
 		s[bytes] = '\0';
-		{
-			tmp = ft_strjoin(buffer, s);
-			if (!tmp)
-			{
-				free(s);
-				free(buffer);
-				free(tmp);
-				return (NULL);
-			}
-			free(buffer);
-			buffer = tmp;
-		}
+		buffer = ft_freeall(buffer, s);
 	}
 	free(s);
 	return (buffer);
@@ -114,8 +117,8 @@ char	*ft_read_str(int fd, char *buffer)
 
 char	*get_next_line(int fd)
 {
-	char *line;
-	static char *buffers[MAX_FD];
+	char		*line;
+	static char	*buffers[MAX_FD];
 
 	if (fd < 0 || fd >= MAX_FD || BUFFER_SIZE <= 0)
 		return (0);
