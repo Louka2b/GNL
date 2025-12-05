@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ldeplace <ldeplace@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 13:28:56 by ldeplace          #+#    #+#             */
-/*   Updated: 2025/12/05 13:33:28 by ldeplace         ###   ########.fr       */
+/*   Updated: 2025/12/05 13:42:47 by ldeplace         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 #ifndef BUFFER_SIZE
 # define BUFFER_SIZE 42
