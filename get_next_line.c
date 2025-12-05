@@ -6,7 +6,7 @@
 /*   By: ldeplace <ldeplace@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 13:28:56 by ldeplace          #+#    #+#             */
-/*   Updated: 2025/12/04 17:57:16 by ldeplace         ###   ########.fr       */
+/*   Updated: 2025/12/05 12:41:31 by ldeplace         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ char	*ft_freeall(char *buffer, char *s)
 	{
 		free(s);
 		free(buffer);
-		free(tmp);
 		return (NULL);
 	}
 	free(buffer);
@@ -101,16 +100,19 @@ char	*ft_read_str(int fd, char *buffer)
 	if (!s)
 		return (NULL);
 	bytes = 1;
-	while (!ft_strchr(buffer, '\n') && bytes != 0)
+	while (!ft_strchr(buffer, '\n') && bytes > 0)
 	{
 		bytes = read(fd, s, BUFFER_SIZE);
 		if (bytes < 0)
 		{
 			free(s);
+			free(buffer);
 			return (NULL);
 		}
 		s[bytes] = '\0';
 		buffer = ft_freeall(buffer, s);
+		if (!buffer)
+			break ;
 	}
 	free(s);
 	return (buffer);
