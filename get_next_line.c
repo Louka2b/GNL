@@ -6,7 +6,7 @@
 /*   By: ldeplace <ldeplace@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 13:28:56 by ldeplace          #+#    #+#             */
-/*   Updated: 2025/12/05 13:33:28 by ldeplace         ###   ########.fr       */
+/*   Updated: 2025/12/09 14:36:08 by ldeplace         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ char	*ft_get_line(char *buffer)
 	if (buffer[o] == '\n')
 		o = 1;
 	else
-		o = 1;
+		o = 0;
 	str = ft_substr(buffer, 0, i + o);
 	if (!str)
 	{
