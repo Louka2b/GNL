@@ -6,19 +6,11 @@
 /*   By: ldeplace <ldeplace@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 13:28:56 by ldeplace          #+#    #+#             */
-/*   Updated: 2025/12/09 14:36:08 by ldeplace         ###   ########.fr       */
+/*   Updated: 2025/12/19 22:58:33 by ldeplace         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-
-#ifndef BUFFER_SIZE
-# define BUFFER_SIZE 42
-#endif
-
-#ifndef MAX_FD
-# define MAX_FD 1024
-#endif
 
 char	*ft_freeall(char *buffer, char *s)
 {
