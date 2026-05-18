@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ldeplace <ldeplace@student.42.fr>          +#+  +:+       +#+        */
+/*   By: louka <louka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/25 15:07:48 by ldeplace          #+#    #+#             */
-/*   Updated: 2025/12/04 17:01:07 by ldeplace         ###   ########.fr       */
+/*   Updated: 2026/05/18 11:54:16 by louka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,4 +112,24 @@ char	*ft_strdup(char *src)
 	}
 	str[j] = '\0';
 	return (str);
+}
+#include <stdio.h>
+
+int    main(void)
+{
+    int        fd;
+    char    *str;
+
+    fd = open("test.txt", O_RDONLY);
+    str = get_next_line(fd);
+    if (str == NULL)
+        printf("%s", str);
+    while (str != NULL)
+    {
+        printf("%s", str);
+        free(str);
+        str = get_next_line(fd);
+    }
+    close(fd);
+    return (0);
 }
